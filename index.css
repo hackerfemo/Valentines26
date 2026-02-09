@@ -25,27 +25,7 @@ body::before {
   height: 300px;
   border-radius: 50%;
   filter: blur(80px);
-  z-index: -1; /* Places them behind the card */
   opacity: 0.6;
-  animation: moveOrbs 20s infinite alternate;
-}
-
-.orb-1 { 
-  background: #ff4d6d; 
-  top: -50px; 
-  left: -50px; 
-}
-
-.orb-2 { 
-  background: #ff9acb; 
-  bottom: -50px; 
-  right: -50px; 
-  animation-delay: -5s; 
-}
-
-@keyframes moveOrbs {
-  from { transform: translate(0, 0); }
-  to { transform: translate(100px, 100px); }
 }
 
 .final-text {

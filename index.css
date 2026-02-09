@@ -1,0 +1,125 @@
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Back to your original pink gradient */
+  background: linear-gradient(135deg, #ff9acb, #ffd1e8);
+}
+
+.card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  /* Frosted Glass Look */
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 40px 30px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  max-width: 420px;
+  width: 90%;
+  transition: transform 2.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 2.5s ease;
+}
+
+#card2.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(150%, -50%); 
+}
+
+.pre-title {
+    color: #b0005b;
+    font-style: italic;
+    margin-bottom: 5px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  margin: 0 0 20px;
+  font-size: 2.1rem;
+  color: #b0005b;
+}
+
+/* Floating Heart Animation */
+.heart-container { margin: 40px 0 40px; height: 70px; }
+.heart {
+  width: 50px; height: 50px;
+  background: #ff3366;
+  position: relative;
+  margin: 0 auto;
+  transform: rotate(-45deg);
+  animation: float 2s ease-in-out infinite;
+}
+.heart::before, .heart::after {
+  content: ""; width: 50px; height: 50px;
+  background: #ff3366; border-radius: 50%; position: absolute;
+}
+.heart::before { top: -25px; left: 0; }
+.heart::after { left: 25px; top: 0; }
+
+@keyframes float {
+  0%, 100% { transform: rotate(-45deg) translateY(0px); }
+  50% { transform: rotate(-45deg) translateY(-15px); }
+}
+
+/* Original Side-by-Side Arrangement */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  min-height: 60px;
+  align-items: center;
+}
+
+button {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.yes {
+  background: #ff3366;
+  color: white;
+  box-shadow: 0 8px 15px rgba(255, 51, 102, 0.3);
+}
+
+.no {
+  background: white;
+  color: #ff3366;
+  border: 1px solid #ff3366;
+  position: relative;
+  z-index: 10;
+}
+
+.message {
+  margin-top: 20px;
+  color: #b0005b;
+  font-weight: 600;
+  min-height: 1.5em;
+}
+
+.fade-in { animation: fadeIn 0.6s forwards; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

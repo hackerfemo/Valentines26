@@ -1,39 +1,74 @@
 * { box-sizing: border-box; }
 
 html, body {
-  margin: 0;
+  margin: 0; 
   padding: 0;
-  width: 100%;
+  width: 100%; 
   height: 100%;
-  overflow: hidden;
-  position: fixed;
+  overflow: hidden; /* Prevents scrolling if the button hits the edge */
+  position: fixed; /* Keeps the background stable on mobile */
   font-family: 'Inter', sans-serif;
 }
 
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* Back to your original pink gradient */
-  background: linear-gradient(135deg, #ff9acb, #ffd1e8);
+/* Sophisticated Moving Background */
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #ff9acb 0%, #ffd1e8 100%);
+    z-index: -2;
+}
+
+.orb {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1; /* Places them behind the card */
+  opacity: 0.6;
+  animation: moveOrbs 20s infinite alternate;
+}
+
+.orb-1 { 
+  background: #ff4d6d; 
+  top: -50px; 
+  left: -50px; 
+}
+
+.orb-2 { 
+  background: #ff9acb; 
+  bottom: -50px; 
+  right: -50px; 
+  animation-delay: -5s; 
+}
+
+@keyframes moveOrbs {
+  from { transform: translate(0, 0); }
+  to { transform: translate(100px, 100px); }
+}
+
+.final-text {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #b0005b; /* Darker burgundy color */
+  font-size: 1.1rem;
 }
 
 .card {
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: 50%; top: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  /* Frosted Glass Look */
-  background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.3); /* Frosted */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   padding: 40px 30px;
   border-radius: 30px;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  max-width: 420px;
-  width: 90%;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+  max-width: 420px; width: 90%;
+  /* SLOWED ANIMATION: 2.5 seconds */
   transition: transform 2.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 2.5s ease;
 }
 
@@ -43,27 +78,13 @@ body {
   transform: translate(150%, -50%); 
 }
 
-.pre-title {
-    color: #b0005b;
-    font-style: italic;
-    margin-bottom: 5px;
-}
+.pre-title { color: #b0005b; font-style: italic; margin-bottom: 5px; }
+h1 { font-family: 'Playfair Display', serif; margin: 0 0 20px; font-size: 2.1rem; color: #b0005b; }
 
-h1 {
-  font-family: 'Playfair Display', serif;
-  margin: 0 0 20px;
-  font-size: 2.1rem;
-  color: #b0005b;
-}
-
-/* Floating Heart Animation */
 .heart-container { margin: 40px 0 40px; height: 70px; }
 .heart {
-  width: 50px; height: 50px;
-  background: #ff3366;
-  position: relative;
-  margin: 0 auto;
-  transform: rotate(-45deg);
+  width: 50px; height: 50px; background: #ff3366;
+  position: relative; margin: 0 auto; transform: rotate(-45deg);
   animation: float 2s ease-in-out infinite;
 }
 .heart::before, .heart::after {
@@ -78,48 +99,41 @@ h1 {
   50% { transform: rotate(-45deg) translateY(-15px); }
 }
 
-/* Original Side-by-Side Arrangement */
-.buttons {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  min-height: 60px;
-  align-items: center;
-}
-
-button {
-  padding: 12px 28px;
-  border: none;
-  border-radius: 999px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.yes {
-  background: #ff3366;
-  color: white;
-  box-shadow: 0 8px 15px rgba(255, 51, 102, 0.3);
-}
-
-.no {
-  background: white;
-  color: #ff3366;
-  border: 1px solid #ff3366;
-  position: relative;
-  z-index: 10;
-}
-
-.message {
-  margin-top: 20px;
-  color: #b0005b;
-  font-weight: 600;
-  min-height: 1.5em;
-}
-
+.buttons { display: flex; justify-content: center; gap: 20px; align-items: center; }
+button { padding: 12px 28px; border: none; border-radius: 999px; font-weight: 600; cursor: pointer; }
+.yes { background: #ff3366; color: white; }
+.no { background: white; color: #ff3366; border: 1px solid #ff3366; position: relative; z-index: 10; transition: transform 0.2s ease; touch-action: none; }
+.message { margin-top: 20px; color: #b0005b; font-weight: 600; }
 .fade-in { animation: fadeIn 0.6s forwards; }
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.polaroid {
+  width: 150px;
+  padding: 10px 10px 25px 10px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transform: rotate(-3deg);
+  margin: 10px auto;
+  border-radius: 2px;
+  animation: photoDrop 1s ease-out forwards;
+}
+
+/* Add this to your existing CSS */
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 20px auto;
+  border: 4px solid rgba(176, 0, 91, 0.1); /* Light burgundy */
+  border-left-color: #b0005b; /* Dark burgundy */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes photoDrop {
+  0% { transform: scale(0.5) rotate(15deg); opacity: 0; }
+  100% { transform: scale(1) rotate(-3deg); opacity: 1; }
 }
